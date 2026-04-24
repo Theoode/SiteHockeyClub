@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "action_de_jeus",
+  "info": {
+    "singularName": "action-de-jeu",
+    "pluralName": "action-de-jeus",
+    "displayName": "Action de Jeu"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "But",
+        "Assistance",
+        "Pénalité"
+      ]
+    },
+    "Temps": {
+      "type": "decimal"
+    },
+    "Detail": {
+      "type": "text"
+    },
+    "match": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::match.match",
+      "inversedBy": "action_de_jeus"
+    },
+    "joueur": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::joueur.joueur"
+    }
+  }
+}

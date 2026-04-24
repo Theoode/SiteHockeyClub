@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "joueurs",
+  "info": {
+    "singularName": "joueur",
+    "pluralName": "joueurs",
+    "displayName": "Joueur"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nom": {
+      "type": "string"
+    },
+    "Prenom": {
+      "type": "string"
+    },
+    "Telephone": {
+      "type": "biginteger"
+    },
+    "Email": {
+      "type": "email"
+    },
+    "Numero": {
+      "type": "integer"
+    },
+    "Sexe": {
+      "type": "enumeration",
+      "enum": [
+        "Homme",
+        "Femme"
+      ]
+    },
+    "Poste": {
+      "type": "enumeration",
+      "enum": [
+        "Gardien",
+        "Défenseur",
+        "Attaquant"
+      ]
+    },
+    "Photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

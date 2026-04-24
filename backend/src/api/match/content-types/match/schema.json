@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "matches",
+  "info": {
+    "singularName": "match",
+    "pluralName": "matches",
+    "displayName": "Match"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Date": {
+      "type": "datetime"
+    },
+    "Adversaire": {
+      "type": "string"
+    },
+    "Lieu": {
+      "type": "string"
+    },
+    "Score_club": {
+      "type": "integer"
+    },
+    "Score_adversaire": {
+      "type": "integer"
+    },
+    "Termine": {
+      "type": "boolean"
+    },
+    "action_de_jeus": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::action-de-jeu.action-de-jeu",
+      "mappedBy": "match"
+    }
+  }
+}
