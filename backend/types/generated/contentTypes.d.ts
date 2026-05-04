@@ -464,6 +464,38 @@ export interface ApiActionDeJeuActionDeJeu extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCarousselCaroussel extends Struct.CollectionTypeSchema {
+  collectionName: 'caroussels';
+  info: {
+    displayName: 'Carroussel';
+    pluralName: 'caroussels';
+    singularName: 'caroussel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::caroussel.caroussel'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Titre: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiJoueurJoueur extends Struct.CollectionTypeSchema {
   collectionName: 'joueurs';
   info: {
@@ -1047,6 +1079,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action-de-jeu.action-de-jeu': ApiActionDeJeuActionDeJeu;
+      'api::caroussel.caroussel': ApiCarousselCaroussel;
       'api::joueur.joueur': ApiJoueurJoueur;
       'api::match.match': ApiMatchMatch;
       'plugin::content-releases.release': PluginContentReleasesRelease;

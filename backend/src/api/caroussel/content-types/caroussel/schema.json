@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "caroussels",
+  "info": {
+    "singularName": "caroussel",
+    "pluralName": "caroussels",
+    "displayName": "Carroussel"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Titre": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

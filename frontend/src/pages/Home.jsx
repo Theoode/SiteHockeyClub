@@ -9,18 +9,29 @@ import 'swiper/css/pagination';
 
 export default function Home() {
   const [matchsAvenir, setMatchsAvenir] = useState([]);
+  const [slides, setSlides] = useState([]);
+  const LOCAL_SLIDES = [
+  {
+    id: 1,
+    image: "/banner1.jpg" // Chemin vers le dossier public
+  },
+  {
+    id: 2,
+    image: "/banner2.jpg"
+  }];
+  
 
   useEffect(() => {
-    // Appel API pour Strapi v5
-    api.get('/matches?populate=*')
-      .then(res => setMatchsAvenir(res.data.data))
-      .catch(err => console.error(err));
-  }, []);
+  api.get('/matches?populate=*')
+    .then(res => setMatchsAvenir(res.data.data))
+    .catch(err => console.error("Erreur Matchs:", err));
+}, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    
+    <div className="min-h-screen bg-gray-50">
       {/* --- CARROUSEL --- */}
-      <div className="h-[550px] w-full overflow-hidden border-b-8 border-pink-500">
+      <div className="h-[500px] w-full overflow-hidden border-b border-gray-200">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           slidesPerView={1}
@@ -29,73 +40,105 @@ export default function Home() {
           autoplay={{ delay: 5000 }}
           className="h-full"
         >
-          <SwiperSlide>
-            <div className="relative h-full w-full bg-black flex items-center justify-center">
-              <div className="absolute inset-0 bg-[url('/slide1.jpg')] bg-cover bg-center opacity-60"></div>
-              <div className="relative z-10 text-center">
-                <h2 className="text-white text-6xl font-black uppercase italic tracking-tighter">
-                  Vitesse & <span className="text-pink-500">Puissance</span>
-                </h2>
+          {LOCAL_SLIDES.map((slide) => (
+            <SwiperSlide key={slide.id}>
+              <div className="relative h-full w-full flex items-center justify-center">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-700"
+                  style={{ backgroundImage: `url(${slide.image})` }}
+                ></div>
+                
+                <div className="relative z-10 text-center px-4">
+                  <h2 className="text-white text-5xl font-bold uppercase tracking-tight">
+                    {slide.titre}
+                  </h2>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 
-      {/* --- SECTION MATCHS À VENIR --- */}
-      <section className="max-w-6xl mx-auto py-16 px-4">
-        <div className="flex items-center gap-4 mb-12">
-          <div className="h-10 w-3 bg-pink-500"></div>
-          <h2 className="text-4xl font-black text-black uppercase italic">
-            Prochaines Rencontres
-          </h2>
-        </div>
-        
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {matchsAvenir && matchsAvenir.length > 0 ? (
-            matchsAvenir.map(match => (
-              <div key={match.id} className="group bg-black rounded-xl shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden border border-gray-800">
-                {/* Date Header */}
-                <div className="bg-pink-500 text-black p-3 text-center font-black text-sm uppercase">
-                  {new Date(match.Date).toLocaleDateString('fr-FR', {
-                    weekday: 'long', day: 'numeric', month: 'long'
-                  })}
-                </div>
-
-                <div className="p-8 flex flex-col items-center">
-                  <div className="flex items-center justify-center gap-6 mb-6">
-                    <span className="font-black text-white text-xl uppercase tracking-tighter">FLIXECOURT</span>
-                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black font-black text-xs">
-                      VS
-                    </div>
-                    <span className="font-black text-pink-500 text-xl uppercase tracking-tighter">
-                      {match.Adversaire}
-                    </span>
-                  </div>
-
-                  <div className="space-y-2 text-center">
-                    <div className="text-gray-400 font-bold flex items-center justify-center gap-2">
-                      <span>🕒 {new Date(match.Date).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
-                    </div>
-                    <div className="text-white font-medium bg-gray-900 px-4 py-1 rounded-full text-sm">
-                      📍 {match.Lieu}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bouton fictif pour le style */}
-                <button className="w-full py-3 bg-white text-black font-black uppercase text-sm hover:bg-pink-500 transition-colors">
-                  Billetterie
-                </button>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-full py-20 text-center border-2 border-dashed border-gray-200 rounded-xl">
-              <p className="text-gray-400 font-bold uppercase tracking-widest text-xl">Aucun match au calendrier</p>
+      {/* --- SECTION PRINCIPALE --- */}
+      <main className="max-w-7xl mx-auto py-16 px-6">
+        <div className="flex flex-col lg:flex-row gap-16">
+          
+          {/* COLONNE MATCHS */}
+          <section className="flex-1">
+            <div className="flex items-center gap-3 mb-10">
+              <div className="h-8 w-1.5 bg-pink-600"></div>
+              <h2 className="text-3xl font-bold text-zinc-800 uppercase tracking-tight">
+                Prochaines Rencontres
+              </h2>
             </div>
-          )}
+            
+            <div className="grid gap-6 md:grid-cols-2">
+              {matchsAvenir && matchsAvenir.length > 0 ? (
+                matchsAvenir.map(match => {
+                  // Compatibilité v4/v5 pour les matchs
+                  const m = match.attributes || match;
+                  return (
+                    <div key={match.id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-md">
+                      <div className="bg-gray-50 border-b border-gray-100 py-3 text-center">
+                        <span className="text-zinc-600 font-semibold text-xs uppercase tracking-widest">
+                          {new Date(m.Date).toLocaleDateString('fr-FR', {
+                            weekday: 'short', day: 'numeric', month: 'long'
+                          })}
+                        </span>
+                      </div>
+
+                      <div className="p-8 flex flex-col items-center">
+                        <div className="flex items-center justify-center gap-6 mb-6 w-full">
+                          <span className="flex-1 text-right font-bold text-zinc-800 text-lg uppercase">Flixecourt</span>
+                          <div className="w-9 h-9 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 font-bold text-[10px] border border-gray-200">VS</div>
+                          <span className="flex-1 text-left font-bold text-pink-600 text-lg uppercase">
+                            {m.Adversaire}
+                          </span>
+                        </div>
+
+                        <div className="space-y-3 text-center w-full">
+                          <div className="text-zinc-500 text-sm font-medium flex items-center justify-center gap-2">
+                            <span>{new Date(m.Date).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                            <span className="text-gray-300">|</span>
+                            <span className="uppercase tracking-wide">{m.Lieu}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="col-span-full py-16 text-center border border-dashed border-gray-300 rounded-xl bg-white">
+                  <p className="text-gray-400 font-medium text-lg">Aucun match programmé</p>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* COLONNE INFOS */}
+          <aside className="w-full lg:w-[320px]">
+            <div className="flex items-center gap-3 mb-10">
+              <div className="h-8 w-1.5 bg-zinc-800"></div>
+              <h2 className="text-3xl font-bold text-zinc-800 uppercase tracking-tight">Actualités</h2>
+            </div>
+
+            <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+              <iframe
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FHockeyClubFlixecourt&tabs=timeline&width=320&height=800&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
+                width="320"
+                height="800"
+                style={{ border: 'none', overflow: 'hidden' }}
+                scrolling="no"
+                frameBorder="0"
+                allowFullScreen={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                title="Facebook Feed"
+              ></iframe>
+            </div>
+          </aside>
+          
         </div>
-      </section>
+      </main>
     </div>
   );
 }
