@@ -5,49 +5,59 @@ import Equipe from './pages/Equipe';
 import Infos from './pages/Infos';
 import Contact from './pages/Contact';
 import Partenaires from './pages/Partenaires';
-import './App.css'
+import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
         {/* --- NAVBAR --- */}
-        <nav className="sticky top-0 z-50 bg-blue-900 text-white shadow-lg">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex justify-between items-center h-20">
+        <nav className="sticky top-0 z-50 bg-zinc-900 text-white shadow-xl border-b border-zinc-800">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex justify-between items-center h-24">
               
-              {/* Logo ou Nom du Club */}
-              <div className="flex-shrink-0 flex items-center">
-                
-              </div>
+              {/* Logo stylisé */}
+              <Link to="/" className="flex flex-col leading-none group">
+                <span className="text-2xl font-black tracking-tighter uppercase group-hover:text-pink-500 transition-colors">
+                  HC Flixecourt
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.3em] text-pink-600 font-bold">
+                  Hockey Club
+                </span>
+              </Link>
 
               {/* Liens de navigation */}
-              <div className="hidden md:flex space-x-8 uppercase text-sm font-bold tracking-wide">
-                <Link to="/" className="hover:text-red-500 transition-colors py-2 border-b-2 border-transparent hover:border-red-500">
+              <div className="hidden md:flex items-center space-x-1 uppercase text-xs font-bold tracking-widest">
+                <Link to="/" className="px-4 py-2 hover:text-pink-500 transition-colors">
                   Le club
                 </Link>
-                <Link to="/planning" className="hover:text-red-500 transition-colors py-2 border-b-2 border-transparent hover:border-red-500">
+                <Link to="/planning" className="px-4 py-2 hover:text-pink-500 transition-colors">
                   Planning
                 </Link>
-                <Link to="/equipe" className="hover:text-red-500 transition-colors py-2 border-b-2 border-transparent hover:border-red-500">
+                <Link to="/equipe" className="px-4 py-2 hover:text-pink-500 transition-colors">
                   Les Équipes
                 </Link>
-                <Link to="/infos" className="hover:text-red-500 transition-colors py-2 border-b-2 border-transparent hover:border-red-500">
+                <Link to="/infos" className="px-4 py-2 hover:text-pink-500 transition-colors">
                   Informations
                 </Link>
-                <Link to="/partenaire" className="hover:text-red-500 transition-colors py-2 border-b-2 border-transparent hover:border-red-500">
-                  Partenariat
+                <Link to="/partenaires" className="px-4 py-2 hover:text-pink-500 transition-colors">
+                  Partenaires
                 </Link>
-                <Link to="/contact" className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-all">
-                  Contact
-                </Link>
+                <div className="pl-4">
+                  <Link 
+                    to="/contact" 
+                    className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full transition-all shadow-lg shadow-pink-900/20 active:scale-95"
+                  >
+                    Contact
+                  </Link>
+                </div>
               </div>
 
-              {/* Menu Mobile (Simplifié ici) */}
+              {/* Menu Mobile Button */}
               <div className="md:hidden flex items-center">
-                <button className="text-white focus:outline-none">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                <button className="p-2 text-white hover:bg-zinc-800 rounded-lg transition-colors">
+                  <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16m-7 6h7" />
                   </svg>
                 </button>
               </div>
@@ -57,19 +67,28 @@ function App() {
         </nav>
 
         {/* --- CONTENU DES PAGES --- */}
-        <main className="pb-10">
+        <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/planning" element={<Planning />} />
             <Route path="/equipe" element={<Equipe />} />
             <Route path="/infos" element={<Infos />} />
+            <Route path="/partenaires" element={<Partenaires />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
 
-        {/* --- FOOTER SIMPLE --- */}
-        <footer className="bg-gray-900 text-gray-400 py-8 text-center text-sm">
-          <p>© 2026 Hockey Club - Tous droits réservés.</p>
+        {/* --- FOOTER --- */}
+        <footer className="bg-zinc-950 text-zinc-500 py-12 border-t border-zinc-900">
+          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-center md:text-left">
+              <p className="font-bold text-zinc-300 uppercase tracking-tight">HC Flixecourt</p>
+              <p className="text-xs uppercase tracking-widest mt-1">Saison 2025-2026</p>
+            </div>
+            <p className="text-[11px] uppercase tracking-widest text-zinc-600">
+              © {new Date().getFullYear()} - Tous droits réservés.
+            </p>
+          </div>
         </footer>
       </div>
     </Router>
