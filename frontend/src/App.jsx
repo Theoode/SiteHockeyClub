@@ -17,28 +17,41 @@ function App() {
             <div className="flex justify-between items-center h-24">
               
               {/* Logo stylisé */}
-              <Link to="/" className="flex flex-col leading-none group">
-                <span className="text-2xl font-black tracking-tighter uppercase group-hover:text-pink-500 transition-colors">
-                  HC Flixecourt
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-pink-600 font-bold">
-                  Hockey Club
-                </span>
+              <Link to="/" className="flex items-center gap-3 group">
+                {/* Le Logo */}
+                <img 
+                  src="/logo.png" 
+                  alt="Logo HC Flixecourt" 
+                  className="h-12 w-auto object-contain transform group-hover:scale-105 transition-transform" 
+                />
+
+                {/* Le Texte */}
+                <div className="flex flex-col leading-none">
+                  <span className="text-2xl font-black tracking-tighter uppercase group-hover:text-pink-500 transition-colors">
+                    HC Flixecourt
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-pink-600 font-bold">
+                    Hockey Club
+                  </span>
+                </div>
               </Link>
 
               {/* Liens de navigation */}
               <div className="hidden md:flex items-center space-x-1 uppercase text-xs font-bold tracking-widest">
                 <Link to="/" className="px-4 py-2 hover:text-pink-500 transition-colors">
-                  Le club
+                  Accueil
                 </Link>
-                <Link to="/planning" className="px-4 py-2 hover:text-pink-500 transition-colors">
-                  Planning
+                <Link to="/infos" className="px-4 py-2 hover:text-pink-500 transition-colors">
+                  Le club
                 </Link>
                 <Link to="/equipe" className="px-4 py-2 hover:text-pink-500 transition-colors">
                   Les Équipes
                 </Link>
-                <Link to="/infos" className="px-4 py-2 hover:text-pink-500 transition-colors">
-                  Informations
+                <Link to="/planning" className="px-4 py-2 hover:text-pink-500 transition-colors">
+                  Planning
+                </Link>
+                 <Link to="/rejoindre" className="px-4 py-2 hover:text-pink-500 transition-colors">
+                  Nous rejoindre
                 </Link>
                 <Link to="/partenaires" className="px-4 py-2 hover:text-pink-500 transition-colors">
                   Partenaires
